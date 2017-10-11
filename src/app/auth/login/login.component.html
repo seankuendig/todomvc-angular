@@ -1,0 +1,17 @@
+<div fxLayout="row" fxLayout.xs="column">
+
+  <form #formData='ngForm' fxFlex="60" fxFlexOffset="20" fxFlexOffset.xs="0">
+
+    <input type="text" placeholder="Email address.." (ngModel)="email" name="email" class="txt" required>
+    <input type="password" placeholder="Password" (ngModel)="password" name="password" class="txt" required>
+
+    <button type="submit" [disabled]="!formData.valid" class="basic-btn" (click)="onLogin(formData)">Log in</button>
+    <button type="submit" [disabled]="!formData.valid" class="basic-btn" (click)="onSignup(formData)">Sign up</button>
+
+    <a class="basic-btn" (click)="onLoginGoogle()">Log In Google</a>
+    <a class="basic-btn" (click)="onLoginFacebook()">Log In Facebook</a>
+
+    <a routerLink="/signup" class="alc">Don't have an account?</a>
+  </form>
+
+</div>

@@ -1,0 +1,212 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+      font-family: 'Roboto', sans-serif;
+      background-color: #f5f5f5;
+  }
+  
+  h1 {
+      font-size: 100px;
+    font-weight: 100;
+    text-align: center;
+    color: rgba(175, 47, 47, 0.15);
+  }
+  
+  .nav {
+      overflow: hidden;
+  }
+  
+  .nav #search-box {
+      float: right;
+  }
+  
+  .nav #search-box input {
+      -webkit-transition: all 0.4s; /* Safari */
+      transition: all 0.4s;
+      transition-timing-function: ease-in-out;
+      width: 80px;
+  }
+  
+  .nav #search-box input:focus {
+      width: 320px;
+  }
+  
+  .content-wrapper {
+      width: 100%;
+      margin: auto;
+  }
+  
+  @media (min-width: 540px) {
+      .content-wrapper {
+          width: 90%;
+      }
+  }
+  
+  @media (min-width: 720px) {
+      .content-wrapper {
+          width: 80%;
+      }
+  }
+  
+  @media (min-width: 960px) {
+      .content-wrapper {
+          width: 70%;
+      }
+  }
+  
+  
+  #select-all {
+      position: absolute;
+    top: 30px;
+    left: 15px;
+  }
+  
+  ul {
+      list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  ul li {
+      padding: 15px;
+      background-color: #fff;
+      border-bottom: 1px solid #eee;
+  }
+  
+  ul li label {
+      vertical-align: middle;
+  }
+  
+  ul li span {
+      // font-size: 24px!important;
+      font-weight: 300;
+      -webkit-transition: all 0.4s; /* Safari */
+      transition: all 0.4s;
+      transition-timing-function: ease-in-out;
+      color: #4d4d4d;
+  }
+  
+  ul li.completed span {
+      text-decoration: line-through;
+      color: #d9d9d9;
+  }
+  
+  
+  ul li .delete-task {
+      display: none;
+      float: right;
+      margin-top: 6px;
+      color: rgba(175, 47, 47, 0.15);
+  }
+  
+  ul li .delete-task:hover {
+      color: rgba(175, 47, 47, 0.5);
+  }
+  
+  ul li:hover .delete-task {
+      display: block;
+  }
+  
+  .task-input {
+      display: inline-block!important;
+    width: 90%!important;
+    margin-bottom: 0!important;
+  }
+  
+  #content {
+      box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);
+      margin-bottom: 40px;
+  }
+  
+  form {
+      margin-bottom: 0;
+      position: relative;
+  }
+  
+  #search-input {
+    display: block;
+    width: 100%;
+    padding: 40px 40px 40px 50px;
+    border: none;
+    background-color: rgb(254, 254, 254);
+    border-bottom: 1px solid #eee;
+    outline: none;
+    margin: 0;
+    box-sizing: border-box;
+    box-shadow: none;
+  }
+  
+  .footer {
+      overflow: hidden;
+      background-color: #fff;
+      font-size: 14px;
+      padding: 10px 20px;
+      color: #777;
+  }
+  
+  .footer > div {
+      float: left;
+  }
+  
+  /* solution 2 */
+  .footer #footer-left {
+      width: 25%;
+      padding-top: 4px;
+  }
+  
+  .footer #footer-left p {
+      margin: 0;
+  }
+  
+  .footer #footer-middle {
+      text-align: center;
+      width: 50%;
+  }
+  
+  .footer #footer-right {
+      text-align: right;
+      width: 25%;
+  }
+  
+  .footer .footer-btn {
+    outline: none;
+    border: 1px solid transparent;
+    background-color: transparent;
+    color: #777;
+  }
+  
+  .footer .footer-btn:hover {
+      border-color: #eee;
+      cursor: pointer;
+  }
+  
+  .footer .footer-btn.active {
+      border-color: rgba(175, 47, 47, 0.15);
+  }
+  
+  .completed {
+      text-decoration: line-through;
+  }
+
+  .input-error {
+    position: absolute;
+    top: 55px;
+    left: 50px;
+    font-size: 12px;
+    color: #F44336;
+  }
+  
+  /* .task-complete {
+      -webkit-appearance: none;
+    appearance: none;
+  } */
+  
+  .task-complete::after {
+      /* url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>') */
+  }
+  
+  .task-complete:checked::after {
+      /* url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>') */
+  }
