@@ -33,9 +33,9 @@ export class TodoListComponent implements OnInit {
       this.taskList = taskList;
       this.isTaskLoaded = true;
     },
-    err  => {
-      this.isTaskLoaded = true;
-    });
+      err => {
+        this.isTaskLoaded = true;
+      });
   }
 
   ngOnInit() {
@@ -43,7 +43,7 @@ export class TodoListComponent implements OnInit {
 
   onSubmit(e) {
     e.preventDefault();
-    if(this.searchForm.invalid) {
+    if (this.searchForm.invalid) {
       return;
     }
 
@@ -104,7 +104,7 @@ export class TodoListComponent implements OnInit {
       return Math.floor((1 + Math.random()) * 0x10000)
         .toString(16)
         .substring(1);
-    }
+    };
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
       s4() + '-' + s4() + s4() + s4();
   }
