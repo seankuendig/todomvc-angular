@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuard } from './auth/shared/auth-guard.service';
 
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -15,7 +16,8 @@ const routes: Routes = [
     },
     {
         path: 'todo-list',
-        component: TodoListComponent
+        component: TodoListComponent,
+        canActivate: [AuthGuard],
     },
 ];
 

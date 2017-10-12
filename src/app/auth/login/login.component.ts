@@ -1,15 +1,19 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
 import * as firebase from 'firebase/app';
+import { AuthService } from '../shared/auth.service';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth) {
+  constructor(public afAuth: AngularFireAuth, 
+    private authService: AuthService,
+    private router: Router) {
 
   }
 
@@ -18,15 +22,13 @@ export class LoginComponent implements OnInit {
 
   onLogin(formData) {
     if (formData.valid) {
-      console.log(formData.value);
       this.afAuth.auth.signInWithEmailAndPassword(formData.value.email, formData.value.password).then(
-        (success) => {
-          console.log(success);
-          // this.router.navigate(['/members']);
+        (resp) => {
+          this.authService.setLoginUser(resp);
+          this.router.navigate(['todo-list']);
         }).catch(
         (err) => {
           console.log(err);
-          // this.error = err;
         });
     }
   }
@@ -59,15 +61,13 @@ export class LoginComponent implements OnInit {
 
   onSignup(formData) {
     if (formData.valid) {
-      console.log(formData.value);
       this.afAuth.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password).then(
-        (success) => {
-          console.log(success);
-          // this.router.navigate(['/members']);
+        (resp) => {
+          this.authService.setLoginUser(resp);
+          this.router.navigate(['todo-list']);
         }).catch(
         (err) => {
           console.log(err);
-          // this.error = err;
         });
     }
   }
