@@ -11,7 +11,9 @@ import { AuthService } from '../shared/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(public afAuth: AngularFireAuth, 
+  errorMsg= '';
+
+  constructor(public afAuth: AngularFireAuth,
     private authService: AuthService,
     private router: Router) {
 
@@ -21,14 +23,16 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(formData) {
+
     if (formData.valid) {
+      this.errorMsg = '';
       this.afAuth.auth.signInWithEmailAndPassword(formData.value.email, formData.value.password).then(
         (resp) => {
           this.authService.setLoginUser(resp);
           this.router.navigate(['todo-list']);
         }).catch(
         (err) => {
-          console.log(err);
+          this.errorMsg = err.message;
         });
     }
   }
@@ -61,13 +65,14 @@ export class LoginComponent implements OnInit {
 
   onSignup(formData) {
     if (formData.valid) {
+      this.errorMsg = '';
       this.afAuth.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password).then(
         (resp) => {
           this.authService.setLoginUser(resp);
           this.router.navigate(['todo-list']);
         }).catch(
         (err) => {
-          console.log(err);
+          this.errorMsg = err.message;
         });
     }
   }

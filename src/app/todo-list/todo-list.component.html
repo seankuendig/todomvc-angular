@@ -18,50 +18,46 @@
     <app-spinner></app-spinner>
   </ng-template>
   <ng-template #loaded>
-      <div class="content-wrapper">
-          <div id="content">
-            <form #searchForm="ngForm" (submit)="onSubmit($event)">
-              <div id="select-all" *ngIf="taskList.length > 0">
-                <input type="checkbox" id="selectAll" name="selectAll" [(ngModel)]="selectAll" (change)="toggleSelectAll()" />
-                <label for="selectAll"></label>
-              </div>
-              <input type="text" class="search" id="search-input" placeholder="What needs to be done" name="search" [(ngModel)]="taskDesc"
-                required #taskDescInput="ngModel" autofocus>
-      
-              <div *ngIf="taskDescInput.invalid && (taskDescInput.dirty || taskDescInput.touched)" class="input-error red-text">
-      
-                <div *ngIf="taskDescInput.errors.required">
-                  Description is required
-                </div>
-              </div>
-            </form>
-            <ul id="task-list">
-              <li *ngFor="let task of (tasks$|async|taskFilter:filter|taskSearchFilter:search)" [ngClass]="{'completed': task.isCompleted}">
-      
-                <input type="checkbox" id="checkbox {{task.id}}" class="task-complete" [(ngModel)]="task.isCompleted" (change)="onUpdateTask(task)"
-                />
-                <label for="checkbox {{task.id}}"></label><span class="task-desc"> {{task.desc}}</span>
-                <a class="delete-task" (click)="onDeleteTask(task)">
-                  <i class="material-icons">close</i>
-                </a>
-              </li>
-            </ul>
-      
-            <div class="footer">
-              <div id="footer-left">
-                <p>{{activeTaskList.length}} {{activeTaskList.length > 1 ? 'items' : 'item'}} left</p>
-              </div>
-              <div id="footer-middle">
-                <button class="footer-btn filter-btn" [ngClass]="{'active': filter=='all'}" (click)="filter='all'">All</button>
-                <button class="footer-btn filter-btn" [ngClass]="{'active': filter=='active'}" (click)="filter='active'">Active</button>
-                <button class="footer-btn filter-btn" [ngClass]="{'active': filter=='completed'}" (click)="filter='completed'">Completed</button>
-              </div>
-              <div id="footer-right">
-                <button class="footer-btn" id="clear-complete-btn" (click)="clearCompleted()">Clear Completed</button>
-              </div>
-            </div>
+    <div class="content-wrapper">
+      <div id="content">
+        <form fxLayout="row" #searchForm="ngForm" (submit)="onSubmit($event)" id="searchForm">
+          <div fxFlex="5">
+            <mat-checkbox name="selectAll" [(ngModel)]="selectAll" (change)="toggleSelectAll()" *ngIf="taskList.length > 0"></mat-checkbox>
+          </div>
+
+
+          <mat-form-field fxFlex="95">
+            <input matInput type="text" id="search-input" placeholder="What needs to be done?" name="search" [(ngModel)]="taskDesc" required
+              #taskDescInput="ngModel" autofocus>
+            <mat-error *ngIf="(searchForm.isDirty||searchForm.isTouched) && taskDescInput.hasError('required')">
+              Description is
+              <strong>required</strong>
+            </mat-error>
+          </mat-form-field>
+
+
+
+
+        </form>
+        <ul id="task-list">
+          <app-todo-list-item [task]="task" *ngFor="let task of (taskList | taskFilter:filter | taskSearchFilter:search)"></app-todo-list-item>
+        </ul>
+
+        <div class="footer">
+          <div id="footer-left">
+            <p>{{activeTaskList.length}} {{activeTaskList.length > 1 ? 'items' : 'item'}} left</p>
+          </div>
+          <div id="footer-middle">
+            <button class="footer-btn filter-btn" [ngClass]="{'active': filter=='all'}" (click)="filter='all'">All</button>
+            <button class="footer-btn filter-btn" [ngClass]="{'active': filter=='active'}" (click)="filter='active'">Active</button>
+            <button class="footer-btn filter-btn" [ngClass]="{'active': filter=='completed'}" (click)="filter='completed'">Completed</button>
+          </div>
+          <div id="footer-right">
+            <button class="footer-btn" id="clear-complete-btn" (click)="clearCompleted()">Clear Completed</button>
           </div>
         </div>
+      </div>
+    </div>
   </ng-template>
 
 

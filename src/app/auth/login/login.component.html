@@ -14,17 +14,30 @@
         <span>or</span>
       </div>
 
+      <p style="color:red" *ngIf="errorMsg">{{errorMsg}}</p>
+
       <form #formData='ngForm'>
 
         <mat-form-field class="example-full-width">
-          <input matInput type="email" placeholder="Email" (ngModel)="email" name="email" class="txt" required>
+          <input matInput type="email" placeholder="Email" (ngModel)="email" name="email" class="txt" required #emailInput="ngModel" pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$">
+          <mat-error *ngIf="emailInput.hasError('pattern')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error *ngIf="emailInput.hasError('required')">
+            Email is
+            <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="example-full-width">
-          <input matInput type="password" placeholder="Password" (ngModel)="password" name="password" class="txt" required>
+          <input matInput type="password" placeholder="Password" (ngModel)="password" name="password" class="txt" required #passwordInput="ngModel">
+          <mat-error *ngIf="passwordInput.hasError('required')">
+            Password is
+            <strong>required</strong>
+          </mat-error>
         </mat-form-field>
 
-        <div fxLayout="row">
+        <div fxLayout="row" class="mt-1">
           <div fxFlex="50" class="pr-0-5">
             <button fxFlex="100" type="submit" [disabled]="!formData.valid" mat-raised-button color="primary" (click)="onLogin(formData)">Log in</button>
           </div>
