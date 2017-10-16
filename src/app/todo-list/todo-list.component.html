@@ -1,11 +1,11 @@
 <div class="container">
 
-  <div class="nav">
+  <!-- <div class="nav">
     <div class="input-field" id="search-box">
       <i class="material-icons prefix">search</i>
       <input id="search" type="text" class="validate" placeholder="Search" [(ngModel)]="search">
     </div>
-  </div>
+  </div> -->
 
   <br>
 
@@ -27,8 +27,7 @@
 
 
           <mat-form-field fxFlex="95">
-            <input matInput type="text" id="search-input" placeholder="What needs to be done?" name="search" [(ngModel)]="taskDesc" required
-              #taskDescInput="ngModel" autofocus>
+            <input matInput type="text" id="search-input" placeholder="What needs to be done?" name="search" [(ngModel)]="taskDesc" #taskDescInput="ngModel">
             <mat-error *ngIf="(searchForm.isDirty||searchForm.isTouched) && taskDescInput.hasError('required')">
               Description is
               <strong>required</strong>

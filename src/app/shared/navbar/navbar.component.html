@@ -4,5 +4,11 @@
   <!-- This fills the remaining space of the current row -->
   <span class="space"></span>
 
+  <form class="example-form" (submit)="onsubmit($event)">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Search" >
+    </mat-form-field>
+  </form>
+
   <button mat-button (click)="onLogout()">Log Out</button>
 </mat-toolbar>
