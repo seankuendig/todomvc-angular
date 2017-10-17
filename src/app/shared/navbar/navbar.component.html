@@ -4,11 +4,16 @@
   <!-- This fills the remaining space of the current row -->
   <span class="space"></span>
 
-  <form class="example-form" (submit)="onsubmit($event)">
-    <mat-form-field class="example-full-width">
-      <input matInput placeholder="Search" >
+  <div *ngIf="authService.isLoggedIn">
+    <mat-form-field class="example-full-width" (submit)="onsubmit($event)">
+      <input type="text" matInput placeholder="Search" [(ngModel)]="taskService.searchTerm">
     </mat-form-field>
-  </form>
+    <button mat-button (click)="onLogout()">Logout</button>
+  </div>
 
-  <button mat-button (click)="onLogout()">Log Out</button>
+  <div *ngIf="!authService.isLoggedIn">
+    <a mat-button routerLink="/auth/login">Login</a>
+  </div>
+
+
 </mat-toolbar>

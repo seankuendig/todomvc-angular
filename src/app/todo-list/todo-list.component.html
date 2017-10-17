@@ -19,14 +19,14 @@
   </ng-template>
   <ng-template #loaded>
     <div class="content-wrapper">
-      <div id="content">
+      <div id="todo-list-content">
         <form fxLayout="row" #searchForm="ngForm" (submit)="onSubmit($event)" id="searchForm">
           <div fxFlex="5">
             <mat-checkbox name="selectAll" [(ngModel)]="selectAll" (change)="toggleSelectAll()" *ngIf="taskList.length > 0"></mat-checkbox>
           </div>
 
 
-          <mat-form-field fxFlex="95">
+          <mat-form-field fxFlex="95" id="search-input-wrapper">
             <input matInput type="text" id="search-input" placeholder="What needs to be done?" name="search" [(ngModel)]="taskDesc" #taskDescInput="ngModel">
             <mat-error *ngIf="(searchForm.isDirty||searchForm.isTouched) && taskDescInput.hasError('required')">
               Description is
@@ -39,7 +39,7 @@
 
         </form>
         <ul id="task-list">
-          <app-todo-list-item [task]="task" *ngFor="let task of (taskList | taskFilter:filter | taskSearchFilter:search)"></app-todo-list-item>
+          <app-todo-list-item [task]="task" *ngFor="let task of (taskList | taskFilter:filter | taskSearchFilter:taskService.searchTerm)"></app-todo-list-item>
         </ul>
 
         <div class="footer">

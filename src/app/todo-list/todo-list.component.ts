@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { NgForm } from '@angular/forms';
+import {TaskService} from './shared/task.service';
 
 import { Task } from './shared/task.model';
 
@@ -23,7 +24,7 @@ export class TodoListComponent implements OnInit {
   taskCollection: AngularFirestoreCollection<Task>;
 
   tasks$: Observable<any[]>;
-  constructor(private db: AngularFirestore) {
+  constructor(private db: AngularFirestore, public taskService: TaskService) {
     this.taskCollection = db.collection('tasks');
 
 

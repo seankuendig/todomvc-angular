@@ -155,12 +155,14 @@ AppComponent = __decorate([
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__auth_shared_auth_service__ = __webpack_require__("../../../../../src/app/auth/shared/auth.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__auth_shared_auth_guard_service__ = __webpack_require__("../../../../../src/app/auth/shared/auth-guard.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__todo_list_todo_list_item_todo_list_item_component__ = __webpack_require__("../../../../../src/app/todo-list/todo-list-item/todo-list-item.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__todo_list_shared_task_service__ = __webpack_require__("../../../../../src/app/todo-list/shared/task.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -201,7 +203,7 @@ AppModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_4_angularfire2_firestore__["b" /* AngularFirestoreModule */],
             __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["b" /* AngularFireAuthModule */],
         ],
-        providers: [__WEBPACK_IMPORTED_MODULE_12__auth_shared_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_13__auth_shared_auth_guard_service__["a" /* AuthGuard */],
+        providers: [__WEBPACK_IMPORTED_MODULE_12__auth_shared_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_13__auth_shared_auth_guard_service__["a" /* AuthGuard */], __WEBPACK_IMPORTED_MODULE_15__todo_list_shared_task_service__["a" /* TaskService */],
             {
                 provide: __WEBPACK_IMPORTED_MODULE_1__angular_core__["d" /* APP_INITIALIZER */],
                 deps: [__WEBPACK_IMPORTED_MODULE_12__auth_shared_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__["a" /* AngularFireAuth */]],
@@ -246,7 +248,7 @@ var AuthGuard = (function () {
         return this.checkLogin(url);
     };
     AuthGuard.prototype.checkLogin = function (url) {
-        if (this.authService.isLoggedIn()) {
+        if (this.authService.isLoggedIn) {
             return true;
         }
         // Store the attempted URL for redirecting
@@ -304,8 +306,23 @@ var AuthService = (function () {
     AuthService.prototype.setLoginUser = function (user) {
         this.loginUser = user;
     };
-    AuthService.prototype.isLoggedIn = function () {
-        return this.loginUser != null;
+    Object.defineProperty(AuthService.prototype, "isLoggedIn", {
+        get: function () {
+            return this.loginUser != null;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    AuthService.prototype.logout = function (success_callback, fail_callback) {
+        var _this = this;
+        this.afAuth.auth.signOut().then(function (resp) {
+            _this.setLoginUser(null);
+            success_callback(resp);
+        }).catch(function (err) {
+            if (fail_callback) {
+                fail_callback(err);
+            }
+        });
     };
     return AuthService;
 }());
@@ -358,7 +375,9 @@ AppShareModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_7__navbar_navbar_component__["a" /* NavbarComponent */]
         ],
         imports: [
+            __WEBPACK_IMPORTED_MODULE_1__angular_common__["b" /* CommonModule */],
             __WEBPACK_IMPORTED_MODULE_6__angular_material__["e" /* MatToolbarModule */],
+            __WEBPACK_IMPORTED_MODULE_4__angular_forms__["c" /* FormsModule */],
             __WEBPACK_IMPORTED_MODULE_6__angular_material__["a" /* MatButtonModule */],
             __WEBPACK_IMPORTED_MODULE_6__angular_material__["d" /* MatInputModule */]
         ],
@@ -382,7 +401,7 @@ AppShareModule = __decorate([
 /***/ "../../../../../src/app/shared/navbar/navbar.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-toolbar color=\"primary\">\n  <span>Todo List</span>\n\n  <!-- This fills the remaining space of the current row -->\n  <span class=\"space\"></span>\n\n  <form class=\"example-form\" (submit)=\"onsubmit($event)\">\n    <mat-form-field class=\"example-full-width\">\n      <input matInput placeholder=\"Search\" >\n    </mat-form-field>\n  </form>\n\n  <button mat-button (click)=\"onLogout()\">Log Out</button>\n</mat-toolbar>"
+module.exports = "<mat-toolbar color=\"primary\">\n  <span>Todo List</span>\n\n  <!-- This fills the remaining space of the current row -->\n  <span class=\"space\"></span>\n\n  <div *ngIf=\"authService.isLoggedIn\">\n    <mat-form-field class=\"example-full-width\" (submit)=\"onsubmit($event)\">\n      <input type=\"text\" matInput placeholder=\"Search\" [(ngModel)]=\"taskService.searchTerm\">\n    </mat-form-field>\n    <button mat-button (click)=\"onLogout()\">Logout</button>\n  </div>\n\n  <div *ngIf=\"!authService.isLoggedIn\">\n    <a mat-button routerLink=\"/auth/login\">Login</a>\n  </div>\n\n\n</mat-toolbar>"
 
 /***/ }),
 
@@ -410,6 +429,9 @@ module.exports = module.exports.toString();
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return NavbarComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__auth_shared_auth_service__ = __webpack_require__("../../../../../src/app/auth/shared/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__todo_list_shared_task_service__ = __webpack_require__("../../../../../src/app/todo-list/shared/task.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -420,13 +442,25 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
+
 var NavbarComponent = (function () {
-    function NavbarComponent() {
+    function NavbarComponent(authService, router, taskService) {
+        this.authService = authService;
+        this.router = router;
+        this.taskService = taskService;
     }
     NavbarComponent.prototype.ngOnInit = function () {
     };
-    NavbarComponent.prototype.onsubmit = function (e) {
-        e.preventDefault();
+    // onsubmit(e) {
+    //   e.preventDefault();
+    // }
+    NavbarComponent.prototype.onLogout = function () {
+        var _this = this;
+        this.authService.logout(function () {
+            _this.router.navigate(['auth/login']);
+        });
     };
     return NavbarComponent;
 }());
@@ -436,9 +470,10 @@ NavbarComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/shared/navbar/navbar.component.html"),
         styles: [__webpack_require__("../../../../../src/app/shared/navbar/navbar.component.scss")]
     }),
-    __metadata("design:paramtypes", [])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__auth_shared_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__auth_shared_auth_service__["a" /* AuthService */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["a" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__todo_list_shared_task_service__["a" /* TaskService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__todo_list_shared_task_service__["a" /* TaskService */]) === "function" && _c || Object])
 ], NavbarComponent);
 
+var _a, _b, _c;
 //# sourceMappingURL=navbar.component.js.map
 
 /***/ }),
@@ -587,6 +622,33 @@ var Task = (function () {
 
 /***/ }),
 
+/***/ "../../../../../src/app/todo-list/shared/task.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TaskService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var TaskService = (function () {
+    function TaskService() {
+        this.searchTerm = '';
+    }
+    return TaskService;
+}());
+TaskService = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])()
+], TaskService);
+
+//# sourceMappingURL=task.service.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/todo-list/todo-list-item/todo-list-item.component.html":
 /***/ (function(module, exports) {
 
@@ -671,7 +733,7 @@ var _a, _b;
 /***/ "../../../../../src/app/todo-list/todo-list.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n\n  <!-- <div class=\"nav\">\n    <div class=\"input-field\" id=\"search-box\">\n      <i class=\"material-icons prefix\">search</i>\n      <input id=\"search\" type=\"text\" class=\"validate\" placeholder=\"Search\" [(ngModel)]=\"search\">\n    </div>\n  </div> -->\n\n  <br>\n\n\n\n  <h1 class=\"text-center\">todos</h1>\n\n  <div *ngIf=\"isTaskLoaded; then loaded else loading\"></div>\n  <ng-template #loading>\n    <app-spinner></app-spinner>\n  </ng-template>\n  <ng-template #loaded>\n    <div class=\"content-wrapper\">\n      <div id=\"content\">\n        <form fxLayout=\"row\" #searchForm=\"ngForm\" (submit)=\"onSubmit($event)\" id=\"searchForm\">\n          <div fxFlex=\"5\">\n            <mat-checkbox name=\"selectAll\" [(ngModel)]=\"selectAll\" (change)=\"toggleSelectAll()\" *ngIf=\"taskList.length > 0\"></mat-checkbox>\n          </div>\n\n\n          <mat-form-field fxFlex=\"95\">\n            <input matInput type=\"text\" id=\"search-input\" placeholder=\"What needs to be done?\" name=\"search\" [(ngModel)]=\"taskDesc\" #taskDescInput=\"ngModel\">\n            <mat-error *ngIf=\"(searchForm.isDirty||searchForm.isTouched) && taskDescInput.hasError('required')\">\n              Description is\n              <strong>required</strong>\n            </mat-error>\n          </mat-form-field>\n\n\n\n\n        </form>\n        <ul id=\"task-list\">\n          <app-todo-list-item [task]=\"task\" *ngFor=\"let task of (taskList | taskFilter:filter | taskSearchFilter:search)\"></app-todo-list-item>\n        </ul>\n\n        <div class=\"footer\">\n          <div id=\"footer-left\">\n            <p>{{activeTaskList.length}} {{activeTaskList.length > 1 ? 'items' : 'item'}} left</p>\n          </div>\n          <div id=\"footer-middle\">\n            <button class=\"footer-btn filter-btn\" [ngClass]=\"{'active': filter=='all'}\" (click)=\"filter='all'\">All</button>\n            <button class=\"footer-btn filter-btn\" [ngClass]=\"{'active': filter=='active'}\" (click)=\"filter='active'\">Active</button>\n            <button class=\"footer-btn filter-btn\" [ngClass]=\"{'active': filter=='completed'}\" (click)=\"filter='completed'\">Completed</button>\n          </div>\n          <div id=\"footer-right\">\n            <button class=\"footer-btn\" id=\"clear-complete-btn\" (click)=\"clearCompleted()\">Clear Completed</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </ng-template>\n\n\n</div>"
+module.exports = "<div class=\"container\">\n\n  <!-- <div class=\"nav\">\n    <div class=\"input-field\" id=\"search-box\">\n      <i class=\"material-icons prefix\">search</i>\n      <input id=\"search\" type=\"text\" class=\"validate\" placeholder=\"Search\" [(ngModel)]=\"search\">\n    </div>\n  </div> -->\n\n  <br>\n\n\n\n  <h1 class=\"text-center\">todos</h1>\n\n  <div *ngIf=\"isTaskLoaded; then loaded else loading\"></div>\n  <ng-template #loading>\n    <app-spinner></app-spinner>\n  </ng-template>\n  <ng-template #loaded>\n    <div class=\"content-wrapper\">\n      <div id=\"todo-list-content\">\n        <form fxLayout=\"row\" #searchForm=\"ngForm\" (submit)=\"onSubmit($event)\" id=\"searchForm\">\n          <div fxFlex=\"5\">\n            <mat-checkbox name=\"selectAll\" [(ngModel)]=\"selectAll\" (change)=\"toggleSelectAll()\" *ngIf=\"taskList.length > 0\"></mat-checkbox>\n          </div>\n\n\n          <mat-form-field fxFlex=\"95\" id=\"search-input-wrapper\">\n            <input matInput type=\"text\" id=\"search-input\" placeholder=\"What needs to be done?\" name=\"search\" [(ngModel)]=\"taskDesc\" #taskDescInput=\"ngModel\">\n            <mat-error *ngIf=\"(searchForm.isDirty||searchForm.isTouched) && taskDescInput.hasError('required')\">\n              Description is\n              <strong>required</strong>\n            </mat-error>\n          </mat-form-field>\n\n\n\n\n        </form>\n        <ul id=\"task-list\">\n          <app-todo-list-item [task]=\"task\" *ngFor=\"let task of (taskList | taskFilter:filter | taskSearchFilter:taskService.searchTerm)\"></app-todo-list-item>\n        </ul>\n\n        <div class=\"footer\">\n          <div id=\"footer-left\">\n            <p>{{activeTaskList.length}} {{activeTaskList.length > 1 ? 'items' : 'item'}} left</p>\n          </div>\n          <div id=\"footer-middle\">\n            <button class=\"footer-btn filter-btn\" [ngClass]=\"{'active': filter=='all'}\" (click)=\"filter='all'\">All</button>\n            <button class=\"footer-btn filter-btn\" [ngClass]=\"{'active': filter=='active'}\" (click)=\"filter='active'\">Active</button>\n            <button class=\"footer-btn filter-btn\" [ngClass]=\"{'active': filter=='completed'}\" (click)=\"filter='completed'\">Completed</button>\n          </div>\n          <div id=\"footer-right\">\n            <button class=\"footer-btn\" id=\"clear-complete-btn\" (click)=\"clearCompleted()\">Clear Completed</button>\n          </div>\n        </div>\n      </div>\n    </div>\n  </ng-template>\n\n\n</div>"
 
 /***/ }),
 
@@ -683,7 +745,7 @@ exports = module.exports = __webpack_require__("../../../../css-loader/lib/css-b
 
 
 // module
-exports.push([module.i, "h1 {\n  font-size: 4rem;\n  font-weight: 100;\n  text-align: center;\n  color: rgba(175, 47, 47, 0.15); }\n\n.nav {\n  overflow: hidden; }\n\n.nav #search-box {\n  float: right; }\n\n.nav #search-box input {\n  /* Safari */\n  transition: all 0.4s;\n  transition-timing-function: ease-in-out;\n  width: 80px; }\n\n.nav #search-box input:focus {\n  width: 320px; }\n\n.content-wrapper {\n  width: 100%;\n  margin: auto; }\n\n@media (min-width: 540px) {\n  .content-wrapper {\n    width: 90%; } }\n\n@media (min-width: 720px) {\n  .content-wrapper {\n    width: 80%; } }\n\n@media (min-width: 960px) {\n  .content-wrapper {\n    width: 70%; } }\n\n#searchForm {\n  background-color: #fff;\n  border-bottom: 1px solid #ddd;\n  padding: 0.5rem 1rem;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\nul {\n  list-style: none;\n  padding: 0;\n  margin: 0; }\n\n.task-input {\n  display: inline-block !important;\n  width: 90% !important;\n  margin-bottom: 0 !important; }\n\n#content {\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);\n  margin-bottom: 40px; }\n\n.footer {\n  overflow: hidden;\n  background-color: #fff;\n  font-size: 14px;\n  padding: 10px 20px;\n  color: #777; }\n\n.footer > div {\n  float: left; }\n\n/* solution 2 */\n.footer #footer-left {\n  width: 25%;\n  padding-top: 4px; }\n\n.footer #footer-left p {\n  margin: 0; }\n\n.footer #footer-middle {\n  text-align: center;\n  width: 50%; }\n\n.footer #footer-right {\n  text-align: right;\n  width: 25%; }\n\n.footer .footer-btn {\n  outline: none;\n  border: 1px solid transparent;\n  background-color: transparent;\n  color: #777; }\n\n.footer .footer-btn:hover {\n  border-color: #eee;\n  cursor: pointer; }\n\n.footer .footer-btn.active {\n  border-color: rgba(175, 47, 47, 0.15); }\n\n.completed {\n  text-decoration: line-through; }\n\n/* .task-complete {\n    -webkit-appearance: none;\n  appearance: none;\n} */\n.task-complete::after {\n  /* url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"-10 -18 100 135\"><circle cx=\"50\" cy=\"50\" r=\"50\" fill=\"none\" stroke=\"#ededed\" stroke-width=\"3\"/></svg>') */ }\n\n.task-complete:checked::after {\n  /* url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"-10 -18 100 135\"><circle cx=\"50\" cy=\"50\" r=\"50\" fill=\"none\" stroke=\"#ededed\" stroke-width=\"3\"/></svg>') */ }\n", ""]);
+exports.push([module.i, "h1 {\n  font-size: 4rem;\n  font-weight: 100;\n  text-align: center;\n  color: rgba(175, 47, 47, 0.15); }\n\n.nav {\n  overflow: hidden; }\n\n.nav #search-box {\n  float: right; }\n\n.nav #search-box input {\n  /* Safari */\n  transition: all 0.4s;\n  transition-timing-function: ease-in-out;\n  width: 80px; }\n\n.nav #search-box input:focus {\n  width: 320px; }\n\n.content-wrapper {\n  width: 100%;\n  margin: auto; }\n\n@media (min-width: 540px) {\n  .content-wrapper {\n    width: 90%; } }\n\n@media (min-width: 720px) {\n  .content-wrapper {\n    width: 80%; } }\n\n@media (min-width: 960px) {\n  .content-wrapper {\n    width: 70%; } }\n\n#searchForm {\n  background-color: #fff;\n  border-bottom: 1px solid #ddd;\n  padding: 0.5rem 1rem;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\nul {\n  list-style: none;\n  padding: 0;\n  margin: 0; }\n\n.task-input {\n  display: inline-block !important;\n  width: 90% !important;\n  margin-bottom: 0 !important; }\n\n#content {\n  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 25px 50px 0 rgba(0, 0, 0, 0.1);\n  margin-bottom: 40px; }\n\n.footer {\n  overflow: hidden;\n  background-color: #fff;\n  font-size: 14px;\n  padding: 10px 20px;\n  color: #777; }\n\n.footer > div {\n  float: left; }\n\n/* solution 2 */\n.footer #footer-left {\n  width: 25%;\n  padding-top: 4px; }\n\n.footer #footer-left p {\n  margin: 0; }\n\n.footer #footer-middle {\n  text-align: center;\n  width: 50%; }\n\n.footer #footer-right {\n  text-align: right;\n  width: 25%; }\n\n.footer .footer-btn {\n  outline: none;\n  border: 1px solid transparent;\n  background-color: transparent;\n  color: #777; }\n\n.footer .footer-btn:hover {\n  border-color: #eee;\n  cursor: pointer; }\n\n.footer .footer-btn.active {\n  border-color: rgba(175, 47, 47, 0.15); }\n\n.completed {\n  text-decoration: line-through; }\n\n#search-input-wrapper {\n  margin-top: 8px; }\n\n/* .task-complete {\n    -webkit-appearance: none;\n  appearance: none;\n} */\n.task-complete::after {\n  /* url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"-10 -18 100 135\"><circle cx=\"50\" cy=\"50\" r=\"50\" fill=\"none\" stroke=\"#ededed\" stroke-width=\"3\"/></svg>') */ }\n\n.task-complete:checked::after {\n  /* url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"40\" height=\"40\" viewBox=\"-10 -18 100 135\"><circle cx=\"50\" cy=\"50\" r=\"50\" fill=\"none\" stroke=\"#ededed\" stroke-width=\"3\"/></svg>') */ }\n", ""]);
 
 // exports
 
@@ -701,6 +763,7 @@ module.exports = module.exports.toString();
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__ = __webpack_require__("../../../../angularfire2/firestore/index.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_forms__ = __webpack_require__("../../../forms/@angular/forms.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_task_service__ = __webpack_require__("../../../../../src/app/todo-list/shared/task.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -713,10 +776,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var TodoListComponent = (function () {
-    function TodoListComponent(db) {
+    function TodoListComponent(db, taskService) {
         var _this = this;
         this.db = db;
+        this.taskService = taskService;
         this.taskList = [];
         this.filter = 'all';
         this.selectAll = false;
@@ -811,10 +876,10 @@ TodoListComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/todo-list/todo-list.component.html"),
         styles: [__webpack_require__("../../../../../src/app/todo-list/todo-list.component.scss")]
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_angularfire2_firestore__["a" /* AngularFirestore */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3__shared_task_service__["a" /* TaskService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__shared_task_service__["a" /* TaskService */]) === "function" && _c || Object])
 ], TodoListComponent);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=todo-list.component.js.map
 
 /***/ }),

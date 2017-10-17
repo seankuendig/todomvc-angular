@@ -16,7 +16,9 @@ import { NavbarComponent } from './navbar/navbar.component';
     NavbarComponent
   ],
   imports: [
+    CommonModule,
     MatToolbarModule,
+    FormsModule,
     MatButtonModule,
     MatInputModule
   ],

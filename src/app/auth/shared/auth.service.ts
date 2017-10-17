@@ -24,7 +24,20 @@ export class AuthService {
         this.loginUser = user;
     }
 
-    isLoggedIn() {
+    get isLoggedIn(): Boolean {
         return this.loginUser != null;
+    }
+
+    logout(success_callback, fail_callback?) {
+        this.afAuth.auth.signOut().then(
+            (resp) => {
+                this.setLoginUser(null);
+                success_callback(resp);
+            }).catch(
+            (err) => {
+                if (fail_callback) {
+                    fail_callback(err);
+                }
+            });
     }
 }

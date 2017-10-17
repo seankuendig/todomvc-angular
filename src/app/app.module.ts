@@ -14,6 +14,7 @@ import { TodoListComponent } from './todo-list/todo-list.component';
 import { AuthService } from './auth/shared/auth.service';
 import { AuthGuard } from './auth/shared/auth-guard.service';
 import { TodoListItemComponent } from './todo-list/todo-list-item/todo-list-item.component';
+import { TaskService } from './todo-list/shared/task.service';
 
 export function factory(authService: AuthService) {
   return () => authService.initialize();
@@ -35,7 +36,7 @@ export function factory(authService: AuthService) {
     AngularFirestoreModule,
     AngularFireAuthModule,
   ],
-  providers: [AuthService, AuthGuard,
+  providers: [AuthService, AuthGuard, TaskService,
     {
       provide: APP_INITIALIZER,
       deps: [AuthService, AngularFireAuth],
