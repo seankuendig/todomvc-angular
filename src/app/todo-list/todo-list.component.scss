@@ -5,27 +5,8 @@ h1 {
   color: rgba(175, 47, 47, 0.15);
 }
 
-.nav {
-    overflow: hidden;
-}
-
-.nav #search-box {
-    float: right;
-}
-
-.nav #search-box input {
-    -webkit-transition: all 0.4s; /* Safari */
-    transition: all 0.4s;
-    transition-timing-function: ease-in-out;
-    width: 80px;
-}
-
-.nav #search-box input:focus {
-    width: 320px;
-}
-
 .content-wrapper {
-    width: 100%;
+    width: 90%;
     margin: auto;
 }
 

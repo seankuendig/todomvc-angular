@@ -1,12 +1,12 @@
 <li fxLayout="row" [ngClass]="{'completed': task.isCompleted}">
 
-  <mat-checkbox fxFlex="5" class="task-complete" [(ngModel)]="task.isCompleted" (change)="onUpdateTask()"></mat-checkbox>
+  <mat-checkbox fxFlex="5" fxFlex.xs="10" class="task-complete" [(ngModel)]="task.isCompleted" (change)="onUpdateTask()"></mat-checkbox>
   
-      <mat-form-field class="full-width" fxFlex="90">
+      <mat-form-field class="full-width" fxFlex="90" fxFlex.xs="80">
         <input matInput [(ngModel)]="task.desc" (focusout)="onUpdateTask()">
       </mat-form-field>
 
-<div fxFlex="5">
+<div fxFlex="5" fxFlex.xs="10">
     <a class="delete-task" (click)="onDeleteTask()">
         <i class="material-icons">close</i>
       </a>

@@ -1,12 +1,4 @@
 <div class="container">
-
-  <!-- <div class="nav">
-    <div class="input-field" id="search-box">
-      <i class="material-icons prefix">search</i>
-      <input id="search" type="text" class="validate" placeholder="Search" [(ngModel)]="search">
-    </div>
-  </div> -->
-
   <br>
 
 
@@ -21,12 +13,12 @@
     <div class="content-wrapper">
       <div id="todo-list-content">
         <form fxLayout="row" #searchForm="ngForm" (submit)="onSubmit($event)" id="searchForm">
-          <div fxFlex="5">
+          <div fxFlex="5" fxFlex.xs="10">
             <mat-checkbox name="selectAll" [(ngModel)]="selectAll" (change)="toggleSelectAll()" *ngIf="taskList.length > 0"></mat-checkbox>
           </div>
 
 
-          <mat-form-field fxFlex="95" id="search-input-wrapper">
+          <mat-form-field fxFlex="95" fxFlex.xs="90" id="search-input-wrapper">
             <input matInput type="text" id="search-input" placeholder="What needs to be done?" name="search" [(ngModel)]="taskDesc" #taskDescInput="ngModel">
             <mat-error *ngIf="(searchForm.isDirty||searchForm.isTouched) && taskDescInput.hasError('required')">
               Description is
@@ -52,7 +44,7 @@
             <button class="footer-btn filter-btn" [ngClass]="{'active': filter=='completed'}" (click)="filter='completed'">Completed</button>
           </div>
           <div id="footer-right">
-            <button class="footer-btn" id="clear-complete-btn" (click)="clearCompleted()">Clear Completed</button>
+            <button class="footer-btn" (click)="clearCompleted()" *ngIf="completedTaskList.length">Clear Completed</button>
           </div>
         </div>
       </div>

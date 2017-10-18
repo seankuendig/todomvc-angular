@@ -1,14 +1,15 @@
-<mat-toolbar color="primary">
+<mat-toolbar color="primary" id="navbar">
   <span>Todo List</span>
 
   <!-- This fills the remaining space of the current row -->
   <span class="space"></span>
 
   <div *ngIf="authService.isLoggedIn">
-    <mat-form-field class="example-full-width" (submit)="onsubmit($event)">
-      <input type="text" matInput placeholder="Search" [(ngModel)]="taskService.searchTerm">
+    <mat-form-field class="example-full-width" id="search-field" (submit)="onsubmit($event)">
+      <span matPrefix><i class="material-icons" id="search-icon">search</i></span>
+      <input type="text" matInput [(ngModel)]="taskService.searchTerm">
     </mat-form-field>
-    <button mat-button (click)="onLogout()">Logout</button>
+    <button mat-button (click)="onLogout()"><i class="material-icons">power_settings_new</i></button>
   </div>
 
   <div *ngIf="!authService.isLoggedIn">

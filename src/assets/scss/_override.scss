@@ -8,3 +8,17 @@
         }
     }
 }
+
+#navbar {
+    .mat-input-placeholder {
+        color: rgba(255, 255, 255,.42)
+    }
+    
+    .mat-input-underline {
+        background-color: rgba(255, 255, 255,.42)
+    }
+
+    .mat-form-field-ripple {
+        background-color: rgba(255, 255, 255,.42)!important;
+    }
+}
