@@ -10,7 +10,7 @@ import { TaskService } from '../../todo-list/shared/task.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public authService: AuthService, private router: Router, public taskService: TaskService,) {
+  constructor(public authService: AuthService, private router: Router, public taskService: TaskService, ) {
 
   }
 

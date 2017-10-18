@@ -11,6 +11,8 @@ import { AuthService } from '../shared/auth.service';
 })
 export class LoginComponent implements OnInit {
 
+  email= '';
+  password= '';
   errorMsg= '';
 
   constructor(public afAuth: AngularFireAuth,
@@ -37,15 +39,14 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  onLoginFacebook(formData) {
+  onLoginFacebook() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.FacebookAuthProvider).then(
       (resp) => {
-        console.log(resp);
-        // this.router.navigate(['/members']);
+        this.authService.setLoginUser(resp.user);
+        this.router.navigate(['todo-list']);
       }).catch(
       (err) => {
-        console.log(err);
-        // this.error = err;
+        this.errorMsg = err.message;
       });
   }
 
@@ -53,12 +54,11 @@ export class LoginComponent implements OnInit {
   onLoginGoogle() {
     this.afAuth.auth.signInWithPopup(new firebase.auth.GoogleAuthProvider).then(
       (resp) => {
-        console.log(resp);
-        // this.router.navigate(['/members']);
+        this.authService.setLoginUser(resp.user);
+        this.router.navigate(['todo-list']);
       }).catch(
       (err) => {
-        console.log(err);
-        // this.error = err;
+        this.errorMsg = err.message;
       });
   }
 

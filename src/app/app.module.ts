@@ -39,7 +39,7 @@ export function factory(authService: AuthService) {
   providers: [AuthService, AuthGuard, TaskService,
     {
       provide: APP_INITIALIZER,
-      deps: [AuthService, AngularFireAuth],
+      deps: [AuthService],
       multi: true,
       useFactory: factory
     }],

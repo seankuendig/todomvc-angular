@@ -1,5 +1,6 @@
 h1 {
     font-size: 4rem;
+    margin: 1rem 0;
   font-weight: 100;
   text-align: center;
   color: rgba(175, 47, 47, 0.15);
@@ -110,15 +111,15 @@ ul {
 }
 
 
-/* .task-complete {
-    -webkit-appearance: none;
-  appearance: none;
-} */
+// /* .task-complete {
+//     -webkit-appearance: none;
+//   appearance: none;
+// } */
 
-.task-complete::after {
-    /* url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>') */
-}
+// .task-complete::after {
+//     /* url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>') */
+// }
 
-.task-complete:checked::after {
-    /* url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>') */
-}
+// .task-complete:checked::after {
+//     /* url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="-10 -18 100 135"><circle cx="50" cy="50" r="50" fill="none" stroke="#ededed" stroke-width="3"/></svg>') */
+// }
