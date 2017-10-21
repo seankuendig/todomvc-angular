@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng build -prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -27,9 +27,12 @@
     "@angular/router": "^4.4.5",
     "angularfire2": "^5.0.0-rc.3",
     "auth0-js": "^8.10.1",
+    "chart.js": "^2.7.0",
     "core-js": "^2.5.1",
     "express": "^4.16.2",
     "firebase": "^4.5.2",
+    "moment": "^2.19.1",
+    "ng2-charts": "^1.6.0",
     "rxjs": "^5.4.3",
     "zone.js": "^0.8.18"
   },

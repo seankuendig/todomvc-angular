@@ -4,7 +4,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from './spinner/spinner.component';
-import { MatButtonModule, MatCheckboxModule, MatInputModule, MatCardModule, MatToolbarModule } from '@angular/material';
+import {
+  MatButtonModule, MatCheckboxModule, MatInputModule, MatCardModule, MatToolbarModule, MatDialogModule,
+  MatSelectModule
+} from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
 
 
@@ -29,7 +32,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     SpinnerComponent,
     FlexLayoutModule,
     NavbarComponent,
-    MatButtonModule, MatCheckboxModule, MatInputModule, MatCardModule, MatToolbarModule
+    MatButtonModule, MatCheckboxModule, MatInputModule, MatCardModule, MatToolbarModule, MatDialogModule, MatSelectModule
   ],
   providers: [],
 })

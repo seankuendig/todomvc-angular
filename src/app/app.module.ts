@@ -4,6 +4,7 @@ import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppShareModule } from './shared/app-shared.module';
 import { AppRoutingModule } from './app-routing-module';
@@ -15,6 +16,7 @@ import { AuthService } from './auth/shared/auth.service';
 import { AuthGuard } from './auth/shared/auth-guard.service';
 import { TodoListItemComponent } from './todo-list/todo-list-item/todo-list-item.component';
 import { TaskService } from './todo-list/shared/task.service';
+import { TodoDiagramComponent } from './todo-list/todo-diagram/todo-diagram.component';
 
 export function factory(authService: AuthService) {
   return () => authService.initialize();
@@ -26,10 +28,12 @@ export function factory(authService: AuthService) {
     TaskFilterPipe,
     TaskSearchFilterPipe,
     TodoListComponent,
-    TodoListItemComponent
+    TodoListItemComponent,
+    TodoDiagramComponent
   ],
   imports: [
     BrowserAnimationsModule,
+    ChartsModule,
     AppShareModule,
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),

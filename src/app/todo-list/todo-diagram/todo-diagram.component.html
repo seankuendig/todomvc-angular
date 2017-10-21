@@ -1,0 +1,23 @@
+<div>
+    <button mat-button (click)="closeDialog()" style="float:right"><i class="material-icons">close</i></button>
+
+  <div style="display: block">
+    <canvas baseChart
+            [datasets]="barChartData"
+            [labels]="barChartLabels"
+            [options]="barChartOptions"
+            [legend]="barChartLegend"
+            [chartType]="barChartType"
+            (chartHover)="chartHovered($event)"
+            (chartClick)="chartClicked($event)"></canvas>
+  </div>
+
+  <mat-form-field>
+      <mat-select placeholder="Change chart type" [(ngModel)]="barChartType">
+        <mat-option *ngFor="let chartType of chartTypes" [value]="chartType.value">
+          {{ chartType.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+</div>

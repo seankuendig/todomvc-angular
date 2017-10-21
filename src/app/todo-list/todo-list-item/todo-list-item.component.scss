@@ -20,9 +20,8 @@
     color: #4d4d4d;
 }
 
- li.completed span {
+ li.completed input.mat-input-element{
     text-decoration: line-through;
-    color: #d9d9d9;
 }
 
 

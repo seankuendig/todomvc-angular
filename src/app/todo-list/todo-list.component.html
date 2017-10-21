@@ -47,8 +47,13 @@
             <button class="footer-btn" (click)="clearCompleted()" *ngIf="completedTaskList.length">Clear Completed</button>
           </div>
         </div>
+        <div class="text-right">
+          <br>
+          <button mat-raised-button color="primary" (click)="openDialog()" >Show Diagram</button>
+        </div>
       </div>
     </div>
+
   </ng-template>
 
 

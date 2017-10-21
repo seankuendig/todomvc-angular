@@ -4,6 +4,7 @@ import { AuthGuard } from './auth/shared/auth-guard.service';
 
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { LoginComponent } from './auth/login/login.component';
+import { TodoDiagramComponent } from './todo-list/todo-diagram/todo-diagram.component';
 
 
 
@@ -17,6 +18,11 @@ const routes: Routes = [
     {
         path: 'todo-list',
         component: TodoListComponent,
+        canActivate: [AuthGuard],
+    },
+    {
+        path: 'todo-diagram',
+        component: TodoDiagramComponent,
         canActivate: [AuthGuard],
     },
 ];
