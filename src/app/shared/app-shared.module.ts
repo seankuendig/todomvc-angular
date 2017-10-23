@@ -5,10 +5,11 @@ import { HttpModule } from '@angular/http';
 import { FormsModule } from '@angular/forms';
 import { SpinnerComponent } from './spinner/spinner.component';
 import {
-  MatButtonModule, MatCheckboxModule, MatInputModule, MatCardModule, MatToolbarModule, MatDialogModule,
+  MatButtonModule, MatCheckboxModule, MatInputModule, MatCardModule, MatToolbarModule, MatDialogModule, MatSidenavModule,
   MatSelectModule
 } from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
+import { LoadingBtnDirective } from './loading-btn.directive';
 
 
 
@@ -16,23 +17,25 @@ import { NavbarComponent } from './navbar/navbar.component';
 @NgModule({
   declarations: [
     SpinnerComponent,
-    NavbarComponent
+    NavbarComponent,
+    LoadingBtnDirective
   ],
   imports: [
     CommonModule,
     MatToolbarModule,
     FormsModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
   ],
   exports: [
     CommonModule,
     HttpModule,
+    LoadingBtnDirective,
     FormsModule,
     SpinnerComponent,
     FlexLayoutModule,
     NavbarComponent,
-    MatButtonModule, MatCheckboxModule, MatInputModule, MatCardModule, MatToolbarModule, MatDialogModule, MatSelectModule
+    MatButtonModule, MatCheckboxModule, MatInputModule, MatCardModule, MatToolbarModule, MatDialogModule, MatSelectModule, MatSidenavModule
   ],
   providers: [],
 })

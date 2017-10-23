@@ -39,10 +39,10 @@
 
         <div fxLayout="row" class="mt-1">
           <div fxFlex="50" class="pr-0-5">
-            <button fxFlex="100" type="submit" [disabled]="!formData.valid" mat-raised-button color="primary" (click)="onLogin(formData)">Log in</button>
+            <button fxFlex="100" type="submit" [disabled]="!formData.valid" mat-raised-button [(appLoadingBtn)]="isLoginLoading" color="primary" (click)="onLogin(formData)">Log in</button>
           </div>
           <div fxFlex="50" class="pl-0-5">
-            <button fxFlex="100" type="submit" [disabled]="!formData.valid" mat-raised-button color="accent" (click)="onSignup(formData)">Sign up</button>
+            <button fxFlex="100" type="submit" [disabled]="!formData.valid" mat-raised-button [(appLoadingBtn)]="isSignUpLoading" color="accent" (click)="onSignup(formData)">Sign up</button>
           </div>
         </div>
 

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../auth/shared/auth.service';
 import { Router } from '@angular/router';
 import { TaskService } from '../../todo-list/shared/task.service';
+import { NavbarService } from '../navbar.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -10,7 +12,10 @@ import { TaskService } from '../../todo-list/shared/task.service';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(public authService: AuthService, private router: Router, public taskService: TaskService, ) {
+  constructor(public authService: AuthService,
+    private router: Router,
+    public taskService: TaskService,
+    private navbarService: NavbarService ) {
 
   }
 
@@ -27,6 +32,10 @@ export class NavbarComponent implements OnInit {
         this.router.navigate(['auth/login']);
       }
     );
+  }
+
+  showSidenav() {
+    this.navbarService.showSideNav = !this.navbarService.showSideNav;
   }
 
 }

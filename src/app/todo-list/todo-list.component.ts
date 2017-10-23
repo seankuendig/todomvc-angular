@@ -122,7 +122,6 @@ export class TodoListComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(TodoDiagramComponent, {
       width: '800px',
-      height: '500px',
       data: { taskList: this.taskList }
     });
 

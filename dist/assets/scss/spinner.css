@@ -5,6 +5,12 @@
     position: relative;
     margin: 100px auto;
   }
+
+  .spinner-sm {
+    margin: auto;
+    height: 24px;
+    width: 24px;
+  }
   
   .double-bounce1, .double-bounce2 {
     width: 100%;

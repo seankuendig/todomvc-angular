@@ -14,6 +14,8 @@ export class LoginComponent implements OnInit {
   email= '';
   password= '';
   errorMsg= '';
+  isLoginLoading = false;
+  isSignUpLoading = false;
 
   constructor(public afAuth: AngularFireAuth,
     private authService: AuthService,
@@ -25,16 +27,18 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin(formData) {
-
     if (formData.valid) {
+      this.isLoginLoading = true;
       this.errorMsg = '';
       this.afAuth.auth.signInWithEmailAndPassword(formData.value.email, formData.value.password).then(
         (resp) => {
           this.authService.setLoginUser(resp);
           this.router.navigate(['todo-list']);
+          this.isLoginLoading = false;
         }).catch(
         (err) => {
           this.errorMsg = err.message;
+          this.isLoginLoading = false;
         });
     }
   }
@@ -65,14 +69,17 @@ export class LoginComponent implements OnInit {
 
   onSignup(formData) {
     if (formData.valid) {
+      this.isSignUpLoading = true;
       this.errorMsg = '';
       this.afAuth.auth.createUserWithEmailAndPassword(formData.value.email, formData.value.password).then(
         (resp) => {
           this.authService.setLoginUser(resp);
           this.router.navigate(['todo-list']);
+          this.isSignUpLoading = false;
         }).catch(
         (err) => {
           this.errorMsg = err.message;
+          this.isSignUpLoading = false;
         });
     }
   }
