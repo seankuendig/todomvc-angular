@@ -10,6 +10,8 @@ import {
 } from '@angular/material';
 import { NavbarComponent } from './navbar/navbar.component';
 import { LoadingBtnDirective } from './loading-btn.directive';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -18,7 +20,8 @@ import { LoadingBtnDirective } from './loading-btn.directive';
   declarations: [
     SpinnerComponent,
     NavbarComponent,
-    LoadingBtnDirective
+    LoadingBtnDirective,
+    SidenavComponent
   ],
   imports: [
     CommonModule,
@@ -26,6 +29,7 @@ import { LoadingBtnDirective } from './loading-btn.directive';
     FormsModule,
     MatButtonModule,
     MatInputModule,
+    RouterModule
   ],
   exports: [
     CommonModule,
@@ -35,6 +39,7 @@ import { LoadingBtnDirective } from './loading-btn.directive';
     SpinnerComponent,
     FlexLayoutModule,
     NavbarComponent,
+    SidenavComponent,
     MatButtonModule, MatCheckboxModule, MatInputModule, MatCardModule, MatToolbarModule, MatDialogModule, MatSelectModule, MatSidenavModule
   ],
   providers: [],

@@ -1,0 +1,28 @@
+import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../auth/shared/auth.service';
+import { Router } from '@angular/router';
+import { TaskService } from '../../todo-list/shared/task.service';
+import { NavbarService } from '../navbar.service';
+
+@Component({
+  selector: 'app-sidenav',
+  templateUrl: './sidenav.component.html',
+  styleUrls: ['./sidenav.component.scss']
+})
+export class SidenavComponent implements OnInit {
+
+  constructor(public authService: AuthService,
+    private router: Router, public taskService: TaskService, public navbarService: NavbarService) { }
+
+  ngOnInit() {
+  }
+
+  onLogout() {
+    this.authService.logout(
+      () => {
+        this.router.navigate(['auth/login']);
+      }
+    );
+  }
+
+}

@@ -1,0 +1,17 @@
+<div *ngIf="authService.isLoggedIn">
+  <mat-form-field class="example-full-width" id="search-field"  (submit)="onsubmit($event)">
+    <span matPrefix>
+      <i class="material-icons" id="search-icon">search</i>
+    </span>
+    <input type="text" matInput [(ngModel)]="taskService.searchTerm">
+  </mat-form-field>
+  <button mat-button (click)="onLogout()">
+    LogOut
+  </button>
+</div>
+
+<div *ngIf="!authService.isLoggedIn">
+  <button mat-button routerLink="/auth/login">Login</button>
+</div>
+
+<button mat-button (click)="navbarService.showSideNav=false">Close</button>

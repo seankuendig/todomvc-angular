@@ -13,7 +13,7 @@
     
 }
 
-#navbar {
+#navbar, #site-sidenav {
     .mat-input-placeholder {
         color: rgba(255, 255, 255,.42)
     }
@@ -29,4 +29,8 @@
 
 .mat-dialog-container {
     margin: auto!important;
+}
+
+.mat-drawer-container {
+    min-height: 100vh;
 }

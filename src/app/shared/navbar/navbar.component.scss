@@ -24,3 +24,17 @@
 
 
 }
+
+.desktop-menu {
+    @media (max-width: 540px) {
+        display: none;
+    }
+}
+
+.mobile-menu {
+    display: none;
+
+    @media (max-width: 540px) {
+        display: block;
+    }
+}

@@ -1,5 +1,8 @@
-<!-- <mat-sidenav-container>
-    <mat-sidenav [opened]="navbarService.showSideNav">Drawer content</mat-sidenav> -->
+<mat-sidenav-container>
+    <mat-sidenav [opened]="navbarService.showSideNav" mode="side" id="site-sidenav">
+        <app-sidenav></app-sidenav>
+    </mat-sidenav>
+
     <app-navbar></app-navbar>
     <router-outlet></router-outlet>
-<!-- </mat-sidenav-container> -->
+</mat-sidenav-container>

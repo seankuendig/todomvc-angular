@@ -4,19 +4,32 @@
   <!-- This fills the remaining space of the current row -->
   <span class="space"></span>
 
-  <div *ngIf="authService.isLoggedIn">
-    <mat-form-field class="example-full-width" id="search-field" (submit)="onsubmit($event)">
-      <span matPrefix><i class="material-icons" id="search-icon">search</i></span>
-      <input type="text" matInput [(ngModel)]="taskService.searchTerm">
-    </mat-form-field>
-    <button mat-button (click)="onLogout()"><i class="material-icons">power_settings_new</i></button>
+  <div class="desktop-menu">
+    <div *ngIf="authService.isLoggedIn">
+      <mat-form-field class="example-full-width" id="search-field" (submit)="onsubmit($event)">
+        <span matPrefix>
+          <i class="material-icons" id="search-icon">search</i>
+        </span>
+        <input type="text" matInput [(ngModel)]="taskService.searchTerm">
+      </mat-form-field>
+      <button mat-button (click)="onLogout()">
+        <i class="material-icons">power_settings_new</i>
+      </button>
+    </div>
+
+    <div *ngIf="!authService.isLoggedIn">
+      <a mat-button routerLink="/auth/login" routerLinkActive="active">Login</a>
+    </div>
+
   </div>
 
-  <div *ngIf="!authService.isLoggedIn">
-    <a mat-button routerLink="/auth/login">Login</a>
+  <div class="mobile-menu">
+    <button mat-button (click)="showSidenav()">
+      <i class="material-icons">menu</i>
+    </button>
   </div>
 
-  <!-- <button mat-button (click)="showSidenav()">Show sidenav</button>  -->
+
 
 
 </mat-toolbar>
