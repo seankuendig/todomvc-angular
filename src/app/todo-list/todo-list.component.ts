@@ -54,6 +54,9 @@ export class TodoListComponent implements OnInit {
     if (this.searchForm.invalid) {
       return;
     }
+    if (this.taskDesc.trim() === '') {
+      return;
+    }
 
     const task: Task = {
       id: this.guid(),
